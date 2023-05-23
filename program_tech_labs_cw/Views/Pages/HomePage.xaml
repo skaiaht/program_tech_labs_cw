@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="program_tech_labs_cw.Views.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:local="program_tech_labs_cw.Views.Pages"
+    xmlns:pages="clr-namespace:program_tech_labs_cw.Views.Pages"
+    Title="HomePage"
+    d:DesignWidth="800"
+    d:DesignHeight="600"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d" d:DataContext="{d:DesignInstance pages:HomePage}">
+
+    <ScrollViewer Margin="20">
+        <StackPanel Margin="0,0,0,10">
+            <TextBlock
+                Margin="0,0,0,5"
+                FontSize="20"
+                TextWrapping="Wrap"
+                FontWeight="Medium"
+                Text="Сортировка числовых и текстовых значений" />
+            <ui:Card>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ui:DataGrid CellEditEnding="DataGrid_OnCellEditEnding" Grid.Column="0" Margin="0,0,10,0" ItemsSource="{Binding ViewModel.StringCollection, Mode=TwoWay}" AutoGenerateColumns="False">
+                        <ui:DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=., UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Header="string"/>
+                        </ui:DataGrid.Columns>
+                    </ui:DataGrid>
+                    <ui:DataGrid Grid.Column="1" Margin="10,0,0,0" ItemsSource="{Binding ViewModel.DoubleCollection, Mode=TwoWay}" AutoGenerateColumns="False">
+                        <ui:DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=., UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Header="double"/>
+                        </ui:DataGrid.Columns>
+                    </ui:DataGrid>
+                </Grid>
+            </ui:Card>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
