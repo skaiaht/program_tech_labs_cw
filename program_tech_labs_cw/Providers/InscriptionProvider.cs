@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace program_tech_labs_cw.Models;
+namespace program_tech_labs_cw.Providers;
 
 public static class InscriptionProvider
 {

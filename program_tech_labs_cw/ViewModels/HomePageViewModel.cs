@@ -1,25 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Documents;
 using CommunityToolkit.Mvvm.ComponentModel;
+using LiveChartsCore;
+using LiveChartsCore.Defaults;
+using LiveChartsCore.Measure;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using program_tech_labs_cw.Models;
+using SkiaSharp;
 
 namespace program_tech_labs_cw.ViewModels;
 
 public partial class HomePageViewModel : ObservableObject
 {
-    [ObservableProperty] private ObservableCollection<string> _stringCollection;
-    [ObservableProperty] private ObservableCollection<double> _doubleCollection;
+    [ObservableProperty] private ObservableCollection<StringItem> _stringItemsCollection;
+    [ObservableProperty] private ObservableCollection<DoubleItem> _doubleItemsCollection;
+    [ObservableProperty] private ObservableCollection<RowSeries<double>> _doubleItemsSeries;
 
     public HomePageViewModel()
     {
-        _stringCollection = GenerateStrings_OnInit();
-        _doubleCollection = GenerateDoubles_OnInit();
+        _stringItemsCollection = GenerateStrings_OnInit();
+        _doubleItemsCollection = GenerateDoubles_OnInit();
+        
+        _doubleItemsSeries = GetCollection(SKColor.Parse(FourthTaskModel.GetAppSetting("Color")), 1);
     }
 
-    private static ObservableCollection<string> GenerateStrings_OnInit()
+    private static ObservableCollection<StringItem> GenerateStrings_OnInit()
     {
         Random random = new Random();
-        ObservableCollection<string> strings = new ObservableCollection<string>();
+        ObservableCollection<StringItem> strings = new ObservableCollection<StringItem>();
         
         string[] adjectives = { "Red", "Green", "Blue" };
         string[] types = { "candy", "marshmello", "marmalade" };
@@ -27,22 +42,44 @@ public partial class HomePageViewModel : ObservableObject
         
         for (int i = 0; i < 10; i++)
         {
-            strings.Add($"{random.Next(1,100)} {adjectives[random.Next(0,2)]} {types[random.Next(0,2)]} {objects[random.Next(0,2)]}");
+            strings.Add(new StringItem{Value = $"{random.Next(1,100)} {adjectives[random.Next(0,2)]} {types[random.Next(0,2)]} {objects[random.Next(0,2)]}"});
         }
 
         return strings;
     }
-    
-    private static ObservableCollection<double> GenerateDoubles_OnInit()
+
+    private static ObservableCollection<DoubleItem> GenerateDoubles_OnInit()
     {
         Random random = new Random();
-        ObservableCollection<double> doubles = new ObservableCollection<double>();
-        
+        ObservableCollection<DoubleItem> observableCollection = new ObservableCollection<DoubleItem>();
         for (int i = 0; i < 10; i++)
         {
-            doubles.Add(random.NextDouble() * 100);
+            observableCollection.Add(new DoubleItem {Value = random.NextDouble() * 100});
         }
 
-        return doubles;
+        return observableCollection;
+    }
+
+    private static IEnumerable<double> ToValuesList(IEnumerable<DoubleItem> collection, double multiplyFactor)
+    {
+        return collection.Select(variableDoubleItem => variableDoubleItem.Value * multiplyFactor).ToList();
+    }
+
+    public void Update(SKColor color, double multiplyFactor)
+    {
+        DoubleItemsSeries = GetCollection(color, multiplyFactor);
+    }
+
+    private ObservableCollection<RowSeries<double>> GetCollection(SKColor color, double multiplyFactor)
+    {
+        return new ObservableCollection<RowSeries<double>>
+        {
+            new()
+            {
+                Name = "Double series",
+                Values = ToValuesList(DoubleItemsCollection, multiplyFactor),
+                Fill = new SolidColorPaint(color),
+            }
+        };
     }
 }

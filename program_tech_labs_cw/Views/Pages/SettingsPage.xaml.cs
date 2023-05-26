@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Windows;
 using program_tech_labs_cw.Models;
+using program_tech_labs_cw.Providers;
 using Wpf.Ui.Appearance;
 
 namespace program_tech_labs_cw.Views.Pages;
@@ -13,6 +15,7 @@ public partial class SettingsPage
         Loaded += (_, _) =>
         {
             DefaultThemeRadioButton_OnLoad();
+            DefaultColorRadioButton_OnLoad();
             Accent.ApplySystemAccent();
             Theme.GetAppTheme();
             AppInfoTextBlock.Text = InscriptionProvider.AssemblyName + " " + InscriptionProvider.AssemblyVersion;
@@ -32,6 +35,25 @@ public partial class SettingsPage
                 break;
             case "System":
                 SystemThemeRadioButton.IsChecked = true;
+                break;
+            default:
+                return;
+        }
+    }
+    
+    private void DefaultColorRadioButton_OnLoad()
+    {
+        string colorValue = FourthTaskModel.GetAppSetting("Color");
+        switch (colorValue)
+        {
+            case "ff0000":
+                RedColorRadioButton.IsChecked = true;
+                break;
+            case "00ff00":
+                GreenColorRadioButton.IsChecked = true;
+                break;
+            case "0000ff":
+                BlueColorRadioButton.IsChecked = true;
                 break;
             default:
                 return;
@@ -61,6 +83,22 @@ public partial class SettingsPage
             {
                 Theme.Apply(ThemeType.Light);
             }
+        }
+    }
+
+    private void ChangeDefaultColor_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (Equals(sender, RedColorRadioButton))
+        {
+            FourthTaskModel.SetAppSetting("Color", "ff0000");
+        }
+        else if (Equals(sender, GreenColorRadioButton))
+        {
+            FourthTaskModel.SetAppSetting("Color", "00ff00");
+        }
+        else if (Equals(sender, BlueColorRadioButton)) 
+        {
+            FourthTaskModel.SetAppSetting("Color", "0000ff");
         }
     }
 }

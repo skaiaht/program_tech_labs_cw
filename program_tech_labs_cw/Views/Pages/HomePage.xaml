@@ -7,9 +7,8 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:local="program_tech_labs_cw.Views.Pages"
     xmlns:pages="clr-namespace:program_tech_labs_cw.Views.Pages"
+    xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
     Title="HomePage"
-    d:DesignWidth="800"
-    d:DesignHeight="600"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -18,28 +17,35 @@
     <ScrollViewer Margin="20">
         <StackPanel Margin="0,0,0,10">
             <TextBlock
-                Margin="0,0,0,5"
+                Margin="0,0,0,0"
                 FontSize="20"
                 TextWrapping="Wrap"
                 FontWeight="Medium"
                 Text="Сортировка числовых и текстовых значений" />
-            <ui:Card>
+            <ui:Card Margin="0,5">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ui:DataGrid CellEditEnding="DataGrid_OnCellEditEnding" Grid.Column="0" Margin="0,0,10,0" ItemsSource="{Binding ViewModel.StringCollection, Mode=TwoWay}" AutoGenerateColumns="False">
-                        <ui:DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Path=., UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Header="string"/>
-                        </ui:DataGrid.Columns>
-                    </ui:DataGrid>
-                    <ui:DataGrid Grid.Column="1" Margin="10,0,0,0" ItemsSource="{Binding ViewModel.DoubleCollection, Mode=TwoWay}" AutoGenerateColumns="False">
-                        <ui:DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Path=., UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Header="double"/>
-                        </ui:DataGrid.Columns>
-                    </ui:DataGrid>
+                    <ui:DataGrid Grid.Column="0" Margin="0,0,10,0" ItemsSource="{Binding ViewModel.StringItemsCollection, Mode=TwoWay}" AutoGenerateColumns="True"/>
+                    <ui:DataGrid Grid.Column="1" SelectionChanged="DataGrid_OnSelectionChanged" Margin="0,0,10,0" ItemsSource="{Binding ViewModel.DoubleItemsCollection, Mode=TwoWay}" AutoGenerateColumns="True"/>
+                    <StackPanel 
+                        Margin="10,0,0,0"
+                        Grid.Column="2">
+                        <ui:NumberBox Name="MultiplyFactor" Value="1" Margin="0,0,0,10"/>
+                        <wpf:CartesianChart
+                            LegendPosition="Hidden"
+                            AnimationsSpeed="0"
+                            MinHeight="300"
+                            MinWidth="300"
+                            Series="{Binding ViewModel.DoubleItemsSeries}"/>
+                    </StackPanel>
                 </Grid>
+            </ui:Card>
+            <ui:Card Margin="0,5">
+                
             </ui:Card>
         </StackPanel>
     </ScrollViewer>

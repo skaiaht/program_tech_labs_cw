@@ -31,6 +31,22 @@
                 </ui:Card>
             </StackPanel>
             
+            <StackPanel Margin="0,0,0,10">
+                <TextBlock
+                    Margin="0,0,0,5"
+                    FontSize="20"
+                    TextWrapping="Wrap"
+                    FontWeight="Medium"
+                    Text="Цвет для серии данных по умолчанию" />
+                <ui:Card>
+                    <StackPanel Orientation="Horizontal" Margin="0,0, 0,0" Name="DefaultColorStackPanel">
+                        <RadioButton GroupName="DefaultColorGroup" Foreground="Red" FontWeight="Bold" Name="RedColorRadioButton" Content="Красный" Click="ChangeDefaultColor_OnClick" />
+                        <RadioButton GroupName="DefaultColorGroup" Foreground="Green" FontWeight="Bold" Name="GreenColorRadioButton" Content="Зелёный" Click="ChangeDefaultColor_OnClick" />
+                        <RadioButton GroupName="DefaultColorGroup" Foreground="Blue" FontWeight="Bold" Name="BlueColorRadioButton" Content="Синий" Click="ChangeDefaultColor_OnClick" />
+                    </StackPanel>
+                </ui:Card>
+            </StackPanel>
+            
             <StackPanel>
                 <TextBlock
                     Margin="0,0,0,5"

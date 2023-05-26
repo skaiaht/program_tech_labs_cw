@@ -11,6 +11,7 @@ public partial class FirstTaskModel
 {
     public static List<double> SelectionSort(List<double> array)
     {
+        ThirdTaskModel.Log(ThirdTaskModel.LogLevel.Trace, $"Double selection sort started at {DateTime.Now:HH:mm:ss.fff}"); // TODO: edit
         int arrayLength = array.Count;
 
         for (int i = 0; i < arrayLength - 1; i++)
@@ -29,6 +30,7 @@ public partial class FirstTaskModel
             array[minValueIndex] = array[i];
             array[i] = tempVar;
         }
+        ThirdTaskModel.Log(ThirdTaskModel.LogLevel.Trace, $"Double selection sort ended at {DateTime.Now:HH:mm:ss.fff}"); // TODO: edit
         return array;
     }
 
