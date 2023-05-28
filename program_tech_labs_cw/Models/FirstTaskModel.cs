@@ -1,9 +1,10 @@
 ﻿// Сортировка числовых и текстовых значений
 // методами сортировки выбором (Selection sort)
-// и пирамидальной сортировкой (Heapsort) 
+// и пирамидальной сортировкой (Heap sort) 
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace program_tech_labs_cw.Models;
 
@@ -220,5 +221,32 @@ public partial class FirstTaskModel
                 right1 = left1 + 1;
             }
         }
+    }
+}
+
+public enum SortType
+{
+    HeapSort,
+    SelectionSort
+}
+
+public class Worker
+{
+    public Worker(IEnumerable<StringItem> stringItems)
+    {
+        
+    }
+    
+    public Worker(IEnumerable<DoubleItem> doubleItems)
+    {
+        
+    }
+
+    public void Sort(SortType sortType)
+    {
+        Stopwatch watch = Stopwatch.StartNew();
+        // TODO: implement logic
+        watch.Stop();
+        long milliseconds = watch.ElapsedMilliseconds;
     }
 }
