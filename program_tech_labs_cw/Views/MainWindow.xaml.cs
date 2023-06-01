@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Windows;
+using program_tech_labs_cw.Providers;
 using program_tech_labs_cw.Views.Pages;
 using Wpf.Ui.Appearance;
 
@@ -65,6 +66,11 @@ namespace program_tech_labs_cw.Views
                     Theme.Apply(ThemeType.HighContrast);
                     break;
             }
+        }
+
+        private void TitleBar_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            TitleBar.Title += InscriptionProvider.AssemblyName + "_v" + InscriptionProvider.AssemblyVersion;
         }
     }
 }

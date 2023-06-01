@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        xmlns:pages="program_tech_labs_cw.View.Pages"
         xmlns:pages1="clr-namespace:program_tech_labs_cw.Views.Pages"
         mc:Ignorable="d"
+        Height="750"
+        Width="1000"
         ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
         ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
         ExtendsContentIntoTitleBar="True"
@@ -57,8 +58,9 @@
         </ui:NavigationView>
 
         <ui:TitleBar
-            Title="program_tech_labs_cw"
+            Title="CW_"
             Name="TitleBar"
+            Loaded="TitleBar_OnLoaded"
             Grid.Row="0">
         </ui:TitleBar>
     </Grid>

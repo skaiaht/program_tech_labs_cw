@@ -45,7 +45,13 @@
                 </Grid>
             </ui:Card>
             <ui:Card Margin="0,5">
-                
+                <StackPanel Orientation="Horizontal">
+                    <ui:Button Margin="2" Tag="StringItem" Content="HeapSort String" Click="HeapSort_OnClick"/>
+                    <ui:Button Margin="2" Tag="StringItem" Content="SelectionSort String" Click="SelectionSort_OnClick"/>
+                    <Separator Margin="10, 5"></Separator>
+                    <ui:Button Margin="2" Tag="DoubleItem" Content="HeapSort Double" Click="HeapSort_OnClick"/>
+                    <ui:Button Margin="2" Tag="DoubleItem" Content="SelectionSort Double" Click="SelectionSort_OnClick"/>
+                </StackPanel>
             </ui:Card>
         </StackPanel>
     </ScrollViewer>

@@ -36,13 +36,20 @@ public partial class HomePageViewModel : ObservableObject
         Random random = new Random();
         ObservableCollection<StringItem> strings = new ObservableCollection<StringItem>();
         
-        string[] adjectives = { "Red", "Green", "Blue" };
-        string[] types = { "candy", "marshmello", "marmalade" };
-        string[] objects = { "doll", "house", "car" };
+        string[] sizes = { "Huge", "Big", "Medium", "Small", "Tiny" };
+        string[] adjectives = { "red", "green", "blue", "yellow", "purple" };
+        string[] types = { "candy", "marshmello", "marmalade", "cookie", "ice cream" };
+        string[] objects = { "doll", "house", "car", "teddy bear", "ball" };
         
         for (int i = 0; i < 10; i++)
         {
-            strings.Add(new StringItem{Value = $"{random.Next(1,100)} {adjectives[random.Next(0,2)]} {types[random.Next(0,2)]} {objects[random.Next(0,2)]}"});
+            strings.Add(new StringItem
+            {
+                Value = $"{sizes[random.Next(0,4)]} " +
+                        $"{adjectives[random.Next(0,4)]} " +
+                        $"{types[random.Next(0,4)]} " +
+                        $"{objects[random.Next(0,4)]}"
+            });
         }
 
         return strings;
@@ -82,4 +89,6 @@ public partial class HomePageViewModel : ObservableObject
             }
         };
     }
+    
+    
 }
