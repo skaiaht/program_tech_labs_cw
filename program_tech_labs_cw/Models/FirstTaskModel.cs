@@ -51,7 +51,7 @@ public static partial class FirstTaskModel
             int minIndex = i;
             for (int j = i + 1; j < n; j++)
             {
-                if (string.Compare(collection[j].Value, collection[minIndex].Value) < 0)
+                if (string.CompareOrdinal(collection[j].Value, collection[minIndex].Value) < 0)
                 {
                     minIndex = j;
                 }
@@ -135,13 +135,13 @@ public static partial class FirstTaskModel
         int right = 2 * i + 2; // right = 2*i + 2
 
         // If left child is larger than root
-        if (left < n && string.Compare(collection[left].Value, collection[largest].Value) > 0)
+        if (left < n && string.CompareOrdinal(collection[left].Value, collection[largest].Value) > 0)
         {
             largest = left;
         }
 
         // If right child is larger than largest so far
-        if (right < n && string.Compare(collection[right].Value, collection[largest].Value) > 0)
+        if (right < n && string.CompareOrdinal(collection[right].Value, collection[largest].Value) > 0)
         {
             largest = right;
         }

@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
-using System.Windows;
-using System.Windows.Documents;
 using CommunityToolkit.Mvvm.ComponentModel;
-using LiveChartsCore;
-using LiveChartsCore.Defaults;
-using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using program_tech_labs_cw.Models;
@@ -30,7 +23,26 @@ public partial class HomePageViewModel : ObservableObject
         
         _doubleItemsSeries = GetCollection(SKColor.Parse(FourthTaskModel.GetAppSetting("Color")), 1);
     }
+    
+    public void Update(SKColor color, double multiplyFactor)
+    {
+        DoubleItemsSeries = GetCollection(color, multiplyFactor);
+    }
 
+    public void HotReload(SKColor color, double multiplyFactor)
+    {
+        StringItemsCollection = GenerateStrings_OnInit();
+        DoubleItemsCollection = GenerateDoubles_OnInit();
+        Update(color, multiplyFactor);
+    }
+    
+    public void HotClear(SKColor color, double multiplyFactor)
+    {
+        StringItemsCollection = new ObservableCollection<StringItem>();
+        DoubleItemsCollection = new ObservableCollection<DoubleItem>();
+        Update(color, multiplyFactor);
+    }
+    
     private static ObservableCollection<StringItem> GenerateStrings_OnInit()
     {
         Random random = new Random();
@@ -72,11 +84,6 @@ public partial class HomePageViewModel : ObservableObject
         return collection.Select(variableDoubleItem => variableDoubleItem.Value * multiplyFactor).ToList();
     }
 
-    public void Update(SKColor color, double multiplyFactor)
-    {
-        DoubleItemsSeries = GetCollection(color, multiplyFactor);
-    }
-
     private ObservableCollection<RowSeries<double>> GetCollection(SKColor color, double multiplyFactor)
     {
         return new ObservableCollection<RowSeries<double>>
@@ -85,7 +92,7 @@ public partial class HomePageViewModel : ObservableObject
             {
                 Name = "Double series",
                 Values = ToValuesList(DoubleItemsCollection, multiplyFactor),
-                Fill = new SolidColorPaint(color),
+                Fill = new SolidColorPaint(color)
             }
         };
     }

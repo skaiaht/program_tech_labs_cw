@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:local="program_tech_labs_cw.Views.Pages"
     xmlns:pages="clr-namespace:program_tech_labs_cw.Views.Pages"
     xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
     Title="HomePage"
@@ -14,7 +13,7 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d" d:DataContext="{d:DesignInstance pages:HomePage}">
 
-    <ScrollViewer Margin="20">
+    <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="20">
         <StackPanel Margin="0,0,0,10">
             <TextBlock
                 Margin="0,0,0,0"
@@ -30,15 +29,20 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <ui:DataGrid Grid.Column="0" Margin="0,0,10,0" ItemsSource="{Binding ViewModel.StringItemsCollection, Mode=TwoWay}" AutoGenerateColumns="True"/>
-                    <ui:DataGrid Grid.Column="1" SelectionChanged="DataGrid_OnSelectionChanged" Margin="0,0,10,0" ItemsSource="{Binding ViewModel.DoubleItemsCollection, Mode=TwoWay}" AutoGenerateColumns="True"/>
+                    <ui:DataGrid Grid.Column="1" Margin="0,0,10,0" ItemsSource="{Binding ViewModel.DoubleItemsCollection, Mode=TwoWay}" SelectionChanged="DataGrid_OnSelectionChanged" AutoGenerateColumns="True"/>
                     <StackPanel 
                         Margin="10,0,0,0"
                         Grid.Column="2">
-                        <ui:NumberBox Name="MultiplyFactor" Value="1" Margin="0,0,0,10"/>
+                        <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" HorizontalAlignment="Left" Margin="0,0,0,10">
+                            <ui:Button Content="Hot reload values" VerticalAlignment="Top" Tag="Reload" Name="HotReloadButton" Margin="0" Click="HotReloadButton_OnClick"/>
+                            <Separator Margin="10, 5"/>
+                            <ui:Button Content="Hot clear values" VerticalAlignment="Top" Tag="Clear" Name="HotClearButton" Margin="0" Click="HotReloadButton_OnClick"/>
+                            <Separator Margin="10, 5"/>
+                            <ui:NumberBox Name="MultiplyFactor" VerticalAlignment="Top" Value="1" Margin="0"/>
+                        </StackPanel>
                         <wpf:CartesianChart
                             LegendPosition="Hidden"
-                            AnimationsSpeed="0"
-                            MinHeight="300"
+                            MinHeight="400"
                             MinWidth="300"
                             Series="{Binding ViewModel.DoubleItemsSeries}"/>
                     </StackPanel>
@@ -48,7 +52,7 @@
                 <StackPanel Orientation="Horizontal">
                     <ui:Button Margin="2" Tag="StringItem" Content="HeapSort String" Click="HeapSort_OnClick"/>
                     <ui:Button Margin="2" Tag="StringItem" Content="SelectionSort String" Click="SelectionSort_OnClick"/>
-                    <Separator Margin="10, 5"></Separator>
+                    <Separator Margin="10, 5"/>
                     <ui:Button Margin="2" Tag="DoubleItem" Content="HeapSort Double" Click="HeapSort_OnClick"/>
                     <ui:Button Margin="2" Tag="DoubleItem" Content="SelectionSort Double" Click="SelectionSort_OnClick"/>
                 </StackPanel>

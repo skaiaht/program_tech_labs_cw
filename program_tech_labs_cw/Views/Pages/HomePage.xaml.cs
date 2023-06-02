@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using program_tech_labs_cw.Models;
@@ -97,6 +94,23 @@ public partial class HomePage : INavigableView<HomePageViewModel>
         catch (Exception exception)
         {
             ThirdTaskModel.Log(ThirdTaskModel.LogLevel.Error, $"BUTTON ACTION FAILED: {exception}");
+        }
+    }
+
+    private void HotReloadButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        Button button = (Button)sender;
+
+        switch (button.Tag)
+        {
+            case "Reload":
+                ViewModel.HotReload(SKColor.Parse(FourthTaskModel.GetAppSetting("Color")), MultiplyFactor.Value ?? 1);
+                break;
+            case "Clear":
+                ViewModel.HotClear(SKColor.Parse(FourthTaskModel.GetAppSetting("Color")), MultiplyFactor.Value ?? 1);
+                break;
+            default:
+                return;
         }
     }
 }
