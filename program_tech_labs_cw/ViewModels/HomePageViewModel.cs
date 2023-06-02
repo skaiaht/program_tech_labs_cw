@@ -15,11 +15,17 @@ public partial class HomePageViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<StringItem> _stringItemsCollection;
     [ObservableProperty] private ObservableCollection<DoubleItem> _doubleItemsCollection;
     [ObservableProperty] private ObservableCollection<RowSeries<double>> _doubleItemsSeries;
+    
+    [ObservableProperty] private ObservableCollection<StringItem> _stringBackupItemsCollection;
+    [ObservableProperty] private ObservableCollection<DoubleItem> _doubleBackupItemsCollection;
 
     public HomePageViewModel()
     {
         _stringItemsCollection = GenerateStrings_OnInit();
         _doubleItemsCollection = GenerateDoubles_OnInit();
+
+        _stringBackupItemsCollection = new ObservableCollection<StringItem>(_stringItemsCollection);
+        _doubleBackupItemsCollection = new ObservableCollection<DoubleItem>(_doubleItemsCollection);
         
         _doubleItemsSeries = GetCollection(SKColor.Parse(FourthTaskModel.GetAppSetting("Color")), 1);
     }
@@ -33,6 +39,16 @@ public partial class HomePageViewModel : ObservableObject
     {
         StringItemsCollection = GenerateStrings_OnInit();
         DoubleItemsCollection = GenerateDoubles_OnInit();
+        StringBackupItemsCollection = new ObservableCollection<StringItem>(StringItemsCollection);
+        DoubleBackupItemsCollection = new ObservableCollection<DoubleItem>(DoubleItemsCollection);
+        
+        Update(color, multiplyFactor);
+    }
+    
+    public void HotUndo(SKColor color, double multiplyFactor)
+    {
+        StringItemsCollection = new ObservableCollection<StringItem>(StringBackupItemsCollection);
+        DoubleItemsCollection = new ObservableCollection<DoubleItem>(DoubleBackupItemsCollection);
         Update(color, multiplyFactor);
     }
     
@@ -53,7 +69,7 @@ public partial class HomePageViewModel : ObservableObject
         string[] types = { "candy", "marshmello", "marmalade", "cookie", "ice cream" };
         string[] objects = { "doll", "house", "car", "teddy bear", "ball" };
         
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             strings.Add(new StringItem
             {
@@ -71,7 +87,7 @@ public partial class HomePageViewModel : ObservableObject
     {
         Random random = new Random();
         ObservableCollection<DoubleItem> observableCollection = new ObservableCollection<DoubleItem>();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             observableCollection.Add(new DoubleItem {Value = random.NextDouble() * 100});
         }
@@ -96,6 +112,4 @@ public partial class HomePageViewModel : ObservableObject
             }
         };
     }
-    
-    
 }

@@ -34,10 +34,12 @@
                         Margin="10,0,0,0"
                         Grid.Column="2">
                         <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" HorizontalAlignment="Left" Margin="0,0,0,10">
+                            <ui:Button Content="Undo values sort" VerticalAlignment="Top" Tag="Undo" Name="HotUndoButton" Margin="0" Click="HotReloadButton_OnClick"/>
+                            <Separator Margin="5, 5"/>
                             <ui:Button Content="Hot reload values" VerticalAlignment="Top" Tag="Reload" Name="HotReloadButton" Margin="0" Click="HotReloadButton_OnClick"/>
-                            <Separator Margin="10, 5"/>
+                            <Separator Margin="5, 5"/>
                             <ui:Button Content="Hot clear values" VerticalAlignment="Top" Tag="Clear" Name="HotClearButton" Margin="0" Click="HotReloadButton_OnClick"/>
-                            <Separator Margin="10, 5"/>
+                            <Separator Margin="5, 5"/>
                             <ui:NumberBox Name="MultiplyFactor" VerticalAlignment="Top" Value="1" Margin="0"/>
                         </StackPanel>
                         <wpf:CartesianChart

@@ -14,7 +14,7 @@ public static class ThirdTaskModel
     public static void Log(LogLevel logLevel, string message)
     {
         string logMessage = string.Empty;
-        logMessage += logLevel switch
+        /*logMessage += logLevel switch
         {
             LogLevel.Trace => "TRACE|",
             LogLevel.Info => "INFO|",
@@ -23,8 +23,8 @@ public static class ThirdTaskModel
             _ => "UNKNOWN|"
         };
         
-        logMessage += $"{DateTime.Now}|";
-        logMessage += message + "\n";
+        logMessage += $"{DateTime.Now}|";*/
+        logMessage += message /*+ "\n"*/;
         List<string> lines = File.ReadAllLines("Assets/trace.log").ToList();
         lines.Add(logMessage);
         File.WriteAllLines("Assets/trace.log", lines);

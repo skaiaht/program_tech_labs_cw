@@ -109,6 +109,9 @@ public partial class HomePage : INavigableView<HomePageViewModel>
             case "Clear":
                 ViewModel.HotClear(SKColor.Parse(FourthTaskModel.GetAppSetting("Color")), MultiplyFactor.Value ?? 1);
                 break;
+            case "Undo":
+                ViewModel.HotUndo(SKColor.Parse(FourthTaskModel.GetAppSetting("Color")), MultiplyFactor.Value ?? 1);
+                break;
             default:
                 return;
         }

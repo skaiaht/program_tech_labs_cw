@@ -222,6 +222,21 @@ public class Worker
     {
         try
         {
+            int itemCounter = 0;
+            if (DoubleItems != null)
+                foreach (var item in DoubleItems)
+                {
+                    ThirdTaskModel.Log(ThirdTaskModel.LogLevel.Info, $"{item.Value}");
+                    itemCounter++;
+                }
+            itemCounter = 0;
+            if (StringItems != null)
+                foreach (var item in StringItems)
+                {
+                    ThirdTaskModel.Log(ThirdTaskModel.LogLevel.Info, $"{item.Value}");
+                    itemCounter++;
+                }
+            
             Stopwatch watch = Stopwatch.StartNew();
             switch (sortType)
             {
@@ -261,20 +276,19 @@ public class Worker
             }
             watch.Stop();
             ThirdTaskModel.Log(ThirdTaskModel.LogLevel.Info, $"Time elapsed: {watch.ElapsedMilliseconds} milliseconds.");
-        
-            int itemCounter;
+            
             itemCounter = 0;
             if (DoubleItems != null)
                 foreach (var item in DoubleItems)
                 {
-                    ThirdTaskModel.Log(ThirdTaskModel.LogLevel.Info, $"Element #{itemCounter}: {item.Value}.");
+                    ThirdTaskModel.Log(ThirdTaskModel.LogLevel.Info, $"{item.Value}");
                     itemCounter++;
                 }
             itemCounter = 0;
             if (StringItems != null)
                 foreach (var item in StringItems)
                 {
-                    ThirdTaskModel.Log(ThirdTaskModel.LogLevel.Info, $"Element #{itemCounter}: {item.Value}.");
+                    ThirdTaskModel.Log(ThirdTaskModel.LogLevel.Info, $"{item.Value}");
                     itemCounter++;
                 }
         }
